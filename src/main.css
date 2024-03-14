@@ -1,0 +1,24 @@
+:root {
+  --gradient1: #0093e9;
+  --gradient2: #80d0c7;
+  --white: #ffffff;
+  --orange: #ff6f47;
+  --green: #0bd4a2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(160deg, var(--gradient1), var(--gradient2));
+  min-height: 100vh;
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}
