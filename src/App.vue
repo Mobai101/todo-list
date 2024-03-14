@@ -26,6 +26,8 @@ watch(
 
 // When user submit a new todo
 const submitHandler = (event) => {
+  if (!event.target.todo.value) return;
+
   todoStore.insertTodo({
     text: event.target.todo.value,
     completed: false,
