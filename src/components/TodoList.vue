@@ -1,8 +1,20 @@
 <script setup>
 import TodoListItem from "./TodoListItem.vue";
 import { useTodoStore } from "../store.js";
+import { watchEffect, ref } from "vue";
 
 const todoStore = useTodoStore();
+const filteredTodos = ref(null);
+
+watchEffect(() => {
+  if (todoStore.currentFilter === "all") {
+    filteredTodos.value = todoStore.todosArr;
+  } else if (todoStore.currentFilter === "completed") {
+    filteredTodos.value = todoStore.todosArr.filter((todo) => todo.completed);
+  } else {
+    filteredTodos.value = todoStore.todosArr.filter((todo) => !todo.completed);
+  }
+});
 </script>
 
 <template>
@@ -10,7 +22,7 @@ const todoStore = useTodoStore();
     <ul class="todo-ul">
       <TransitionGroup name="todos">
         <TodoListItem
-          v-for="todo in todoStore.todosArr"
+          v-for="todo in filteredTodos"
           :key="todo.id"
           :todo="todo"
         />
@@ -25,6 +37,10 @@ const todoStore = useTodoStore();
   .todo-container {
     width: 50%;
     margin: auto;
+  }
+
+  .todo-ul {
+    position: relative;
   }
 
   .todos-move,

@@ -1,8 +1,21 @@
-<script setup></script>
+<script setup>
+import { useTodoStore } from "@/store";
+
+const todoStore = useTodoStore();
+
+const filterChangeHandler = (event) => {
+  todoStore.changeFilter(event.target.value);
+};
+</script>
 
 <template>
   <div class="select">
-    <select name="todos" id="todos" class="filter-todo">
+    <select
+      name="todos"
+      id="todos"
+      class="filter-todo"
+      @change="filterChangeHandler($event)"
+    >
       <option value="all">All</option>
       <option value="completed">Completed</option>
       <option value="uncompleted">Uncompleted</option>

@@ -17,7 +17,7 @@ onMounted(() => {
 
 // Watch when todos state changes, then update local storage also
 watch(
-  todoStore.todosArr,
+  () => todoStore.todosArr,
   (newTodosArr) => {
     localStorage.setItem("todos", JSON.stringify(newTodosArr));
   },
@@ -26,7 +26,7 @@ watch(
 
 // When user submit a new todo
 const submitHandler = (event) => {
-  todoStore.insert({
+  todoStore.insertTodo({
     text: event.target.todo.value,
     completed: false,
     id: parseInt(Math.random() * new Date()),

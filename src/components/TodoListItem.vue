@@ -1,7 +1,16 @@
 <script setup>
-const props = defineProps({
-  todo: Object,
-});
+import { useTodoStore } from "@/store";
+
+const todoStore = useTodoStore();
+const props = defineProps({ todo: Object });
+
+const completeHandler = (todoId) => {
+  todoStore.toggleComplete(todoId);
+};
+
+const removeHandler = (todoId) => {
+  todoStore.removeTodo(todoId);
+};
 </script>
 
 <template>
@@ -10,8 +19,12 @@ const props = defineProps({
       {{ props.todo.text }}
     </p>
     <div class="todo-buttonDiv">
-      <button class="complete-btn"><i class="fas fa-check"></i></button>
-      <button class="trash-btn"><i class="fas fa-trash"></i></button>
+      <button class="complete-btn" @click="completeHandler(props.todo.id)">
+        <i class="fas fa-check"></i>
+      </button>
+      <button class="trash-btn" @click="removeHandler(props.todo.id)">
+        <i class="fas fa-trash"></i>
+      </button>
     </div>
   </li>
 </template>
