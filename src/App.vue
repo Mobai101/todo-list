@@ -22,7 +22,6 @@ watch(
     localStorage.setItem("todos", JSON.stringify(newTodosArr));
   },
   { deep: true }
-  ,  { deep: true }
 );
 
 // When user submit a new todo
