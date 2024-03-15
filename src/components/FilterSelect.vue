@@ -1,10 +1,12 @@
 <script setup>
-import { useTodoStore } from "@/store";
+import { reactiveFilter } from "@/reactiveStore";
+// import { useTodoStore } from "@/store";
 
-const todoStore = useTodoStore();
+// const todoStore = useTodoStore();
 
 const filterChangeHandler = (event) => {
-  todoStore.changeFilter(event.target.value);
+  // todoStore.changeFilter(event.target.value);
+  reactiveFilter.changeFilter(event.target.value);
 };
 </script>
 
