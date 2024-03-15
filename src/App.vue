@@ -3,22 +3,21 @@ import FormInput from "./components/FormInput.vue";
 import FilterSelect from "./components/FilterSelect.vue";
 import TodoList from "./components/TodoList.vue";
 import { watch, onMounted } from "vue";
-import { reactiveTodos } from "@/reactiveStore";
-// import { useTodoStore } from "./store.js";
+import { useTodoStore } from "./store.js";
 
-// const todoStore = useTodoStore();
+const todoStore = useTodoStore();
 
 // When component first mounted, get todos from localstorage into state
 onMounted(() => {
   const fetchedTodos = JSON.parse(localStorage.getItem("todos"));
-  reactiveTodos.value = fetchedTodos || [];
+  todoStore.todosArr = fetchedTodos || [];
 
-  console.log(reactiveTodos.value);
+  console.log(todoStore.todosArr);
 });
 
 // Watch when todos state changes, then update local storage also
 watch(
-  () => reactiveTodos.value,
+  () => todoStore.todosArr,
   (newTodosArr) => {
     localStorage.setItem("todos", JSON.stringify(newTodosArr));
   },
@@ -29,7 +28,7 @@ watch(
 const submitHandler = (event) => {
   if (!event.target.todo.value) return;
 
-  reactiveTodos.insertTodo({
+  todoStore.insertTodo({
     text: event.target.todo.value,
     completed: false,
     id: parseInt(Math.random() * new Date()),

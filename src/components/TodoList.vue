@@ -1,31 +1,20 @@
 <script setup>
 import TodoListItem from "./TodoListItem.vue";
-import { ref, watch } from "vue";
-import { reactiveFilter, reactiveTodos } from "@/reactiveStore";
-// import { storeToRefs } from "pinia";
-// import { useTodoStore } from "../store.js";
+import { useTodoStore } from "../store.js";
+import { watchEffect, ref } from "vue";
 
-// const todoStore = useTodoStore();
-// const { todosArr } = storeToRefs(todoStore);
+const todoStore = useTodoStore();
 const filteredTodos = ref(null);
 
-watch(
-  [reactiveFilter, reactiveTodos],
-  () => {
-    if (reactiveFilter.value === "all") {
-      filteredTodos.value = reactiveTodos.value;
-    } else if (reactiveFilter.value === "completed") {
-      filteredTodos.value = reactiveTodos.value.filter(
-        (todo) => todo.completed
-      );
-    } else {
-      filteredTodos.value = reactiveTodos.value.filter(
-        (todo) => !todo.completed
-      );
-    }
-  },
-  { immediate: true }
-);
+watchEffect(() => {
+  if (todoStore.currentFilter === "all") {
+    filteredTodos.value = todoStore.todosArr;
+  } else if (todoStore.currentFilter === "completed") {
+    filteredTodos.value = todoStore.todosArr.filter((todo) => todo.completed);
+  } else {
+    filteredTodos.value = todoStore.todosArr.filter((todo) => !todo.completed);
+  }
+});
 </script>
 
 <template>
