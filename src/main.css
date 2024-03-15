@@ -22,3 +22,7 @@ body {
 button {
   cursor: pointer;
 }
+
+svg {
+  padding-top: 0.3rem;
+}
