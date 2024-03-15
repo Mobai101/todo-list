@@ -1,16 +1,15 @@
 <script setup>
-// import { useTodoStore } from "@/store";
-import { reactiveTodos } from "@/reactiveStore";
+import { useTodoStore } from "@/store";
 
-// const todoStore = useTodoStore();
+const todoStore = useTodoStore();
 const props = defineProps({ todo: Object });
 
 const completeHandler = (todoId) => {
-  reactiveTodos.toggleComplete(todoId);
+  todoStore.toggleComplete(todoId);
 };
 
 const removeHandler = (todoId) => {
-  reactiveTodos.removeTodo(todoId);
+  todoStore.removeTodo(todoId);
 };
 </script>
 
